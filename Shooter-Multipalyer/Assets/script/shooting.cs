@@ -1,59 +1,127 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 public class shooting : MonoBehaviour
 {
     public float aimDuration=0.3f;
+    public GunType gunType;
+    public CinemachineCamera FireCamara;
+    public GameObject FirstPersonCamara;
+    public CinemachineCamera FirstPersonCamaraFov;
+    public GameObject Scope;
+    public CinemachineImpulseSource Recoil;
     public Rig RigLayer;
     public Transform FireOriginPoint;
     public Transform CrossTargetPoint;
     public ParticleSystem muzzlEffenct;
     public ParticleSystem HittEffect;
+    public TrailRenderer trail;
+
+   
 
     Ray ray;
     RaycastHit hitinfo;
     private InputAction FireAction;
-    private PlayerInput playerInput;
-    
+    public PlayerInput playerInput;
+    public ReloadAll reloadAll;
+    private float LastFireTime = 0;
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        
+        reloadAll.MaxAmmo =gunType.Maxammo;
         FireAction = playerInput.actions["Fire"];
     }
 
     void Start()
     {
-        
+        reloadAll.CurrentAmmo = 0;
     }
 
     
     void Update()
     {
+        ScopeOn();
         ray.origin = FireOriginPoint.position;
         ray.direction = CrossTargetPoint.position - FireOriginPoint.position;
 
 
-
-        if(IsFire())
+       
+        
+        if(IsFire() && reloadAll.CanShoot())
         {
-           
+            FireCamara.enabled = true;
+          
+
             RigLayer.weight += Time.deltaTime / aimDuration;
 
-            if(Physics.Raycast(ray,out hitinfo) && RigLayer.weight==1)
+            if(Time.time >= LastFireTime + gunType.FireRate)
             {
-                Debug.DrawRay(ray.origin, hitinfo.point, Color.red, 20.0f);
+                LastFireTime = Time.time;
+                reloadAll.CurrentAmmo--;
                 muzzlEffenct.Emit(1);
+                Recoil.GenerateImpulse();
 
-                HittEffect.transform.position = hitinfo.point;
-                HittEffect.transform.forward = hitinfo.normal;
-                HittEffect.Emit(1);
+                if(gunType.IsShotGun)
+                {
+                    ShotGen();
+                }
+                else
+                {
+                    SingleBullet(ray);
+                }
             }
+           
         }
         else
         {
-            RigLayer.weight -= Time.deltaTime / aimDuration;
+            FireCamara.enabled = false;
+
+            if(!FirstPersonCamara.activeInHierarchy)
+            {
+                RigLayer.weight -= Time.deltaTime / aimDuration;
+            }
+           
         }
+    }
+
+    private void SingleBullet(Ray BulletRay)
+    {
+        if (Physics.Raycast(BulletRay, out hitinfo, gunType.FireDistance) && RigLayer.weight == 1)
+        {
+
+            HittEffect.transform.position = hitinfo.point;
+            HittEffect.transform.forward = hitinfo.normal;
+            HittEffect.Emit(1);
+
+            var Trail = Instantiate(trail, ray.origin, Quaternion.identity);
+            Trail.AddPosition(ray.origin);
+            Trail.transform.position = hitinfo.point;
+        }
+    }
+    private void ShotGen()
+    {
+        int PelletCout = 8;
+        float Angle = 10f;
+
+        for (int i = 0; i < PelletCout; i++)
+        {
+            Vector3 SpreadDirection = Direction(ray.direction, Angle);
+            Ray PelletRay = new Ray(ray.origin, SpreadDirection);
+
+            SingleBullet(PelletRay);
+        }
+
+    }
+
+    private Vector3 Direction(Vector3 OriginalDirection, float Angle)
+    {
+        float randomX = Random.Range(Angle, -Angle);
+        float randomY = Random.Range(Angle, -Angle);
+        Quaternion SpreadRotation = Quaternion.Euler(randomX, randomY, 0);
+
+        return SpreadRotation * OriginalDirection;
     }
 
     private bool IsFire()
@@ -61,5 +129,21 @@ public class shooting : MonoBehaviour
         return FireAction.IsPressed();
     }
 
-    
+    private void ScopeOn()
+    {
+        if (FirstPersonCamara.activeInHierarchy && gunType.IsSniper)
+        {
+            Scope.SetActive(true);
+            FirstPersonCamaraFov.Lens.FieldOfView = 5f;
+        }
+        else
+        {
+            Scope.SetActive(false);
+            FirstPersonCamaraFov.Lens.FieldOfView = 50f;
+        }
+
+    }
+
+
+
 }

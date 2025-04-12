@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "Reload",
                     "type": "Button",
                     "id": "602a3e55-5497-450a-afaa-139440d8a3f8",
                     "expectedControlType": "",
@@ -27,6 +27,51 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "ea303be1-048f-49f6-8085-02cc975221d4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Heal",
+                    "type": "Button",
+                    "id": "fe2d5efe-ae51-413f-af29-db6710fc30b7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "grenade",
+                    "type": "Button",
+                    "id": "cdde4a8d-7ac2-4fac-89a7-84cff1e68c1a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "efc8b8d2-1317-4839-967d-36ad9dfd2c3c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Snoke",
+                    "type": "Button",
+                    "id": "3f9f7d8b-b3a2-483d-968b-50eb5f0452ad",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CamaraSwitch",
+                    "type": "Button",
+                    "id": "664e1266-5f22-4e32-9ce2-a8849676b36f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -103,11 +148,11 @@
                 {
                     "name": "",
                     "id": "80e2d169-e88d-4b97-9392-871b14e664ff",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": ";keybord & mouse",
-                    "action": "Jump",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -119,6 +164,61 @@
                     "processors": "",
                     "groups": ";keybord & mouse",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91f0864e-5f04-4102-8bf9-03cfa3f86a01",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keybord & mouse",
+                    "action": "Heal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43368402-baa4-4c80-b21f-7a728f1be138",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keybord & mouse",
+                    "action": "grenade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17f65d95-9ca8-495a-8beb-e4508d767147",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keybord & mouse",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55d545a6-b995-4498-9843-9eb670821563",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keybord & mouse",
+                    "action": "Snoke",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff6c7012-6054-4ba2-9559-ece609af53d1",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keybord & mouse",
+                    "action": "CamaraSwitch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
