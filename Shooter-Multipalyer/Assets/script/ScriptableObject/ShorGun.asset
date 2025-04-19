@@ -17,3 +17,4 @@ MonoBehaviour:
   Maxammo: 10
   IsShotGun: 1
   IsSniper: 0
+  Damage: 10

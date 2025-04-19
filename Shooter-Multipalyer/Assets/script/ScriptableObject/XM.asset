@@ -15,3 +15,6 @@ MonoBehaviour:
   FireRate: 0.4
   FireDistance: 70
   Maxammo: 20
+  IsShotGun: 0
+  IsSniper: 0
+  Damage: 7

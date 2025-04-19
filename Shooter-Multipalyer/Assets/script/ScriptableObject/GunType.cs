@@ -8,4 +8,5 @@ public class GunType : ScriptableObject
     public int Maxammo = 45;
     public bool IsShotGun;
     public bool IsSniper;
+    public int Damage=4;
 }

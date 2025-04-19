@@ -16,6 +16,9 @@ TagManager:
   - MachineGun
   - ShotGun
   - Sniper
+  - Bot
+  - player
+  - water
   layers:
   - Default
   - TransparentFX
@@ -23,9 +26,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Soldier
+  - MIni Map
+  - boder
   - 
   - 
   - 
