@@ -23,6 +23,8 @@ public class shooting : MonoBehaviour
 
     Ray ray;
     RaycastHit hitinfo;
+
+    private PlayAudio playAudio;
     private InputAction FireAction;
     public PlayerInput playerInput;
     public ReloadAll reloadAll;
@@ -30,7 +32,7 @@ public class shooting : MonoBehaviour
 
     private void Awake()
     {
-        
+        playAudio = GetComponentInParent<PlayAudio>();
         reloadAll.MaxAmmo =gunType.Maxammo;
         FireAction = playerInput.actions["Fire"];
     }
@@ -54,7 +56,7 @@ public class shooting : MonoBehaviour
         {
             FireCamara.enabled = true;
           
-
+           
             RigLayer.weight += Time.deltaTime / aimDuration;
 
             if(Time.time >= LastFireTime + gunType.FireRate)
@@ -92,10 +94,10 @@ public class shooting : MonoBehaviour
         if (Physics.Raycast(BulletRay, out hitinfo, gunType.FireDistance) && RigLayer.weight == 1)
         {
 
-           
-            
 
-            var Trail = Instantiate(trail, ray.origin, Quaternion.identity);
+            playAudio.AudioPlay(gunType.gunSfx);
+
+           var Trail = Instantiate(trail, ray.origin, Quaternion.identity);
             Trail.AddPosition(ray.origin);
             Trail.transform.position = hitinfo.point;
 

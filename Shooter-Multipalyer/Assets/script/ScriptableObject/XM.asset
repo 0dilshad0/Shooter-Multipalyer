@@ -18,3 +18,4 @@ MonoBehaviour:
   IsShotGun: 0
   IsSniper: 0
   Damage: 7
+  gunSfx: {fileID: 8300000, guid: 97441a10a745ec446ac205add13f729b, type: 3}

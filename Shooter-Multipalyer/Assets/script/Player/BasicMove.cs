@@ -14,14 +14,15 @@ public class BasicMove : MonoBehaviour
     private Vector3 position;
     private Inventory inventory;
     private CharacterController controller;
-
-
+    private PlayAudio playAudio;
+   
     private void Awake()
     {
         playerRotation = GetComponent<PlayerRotation>();
         inventory = GetComponent<Inventory>();
         controller = GetComponent<CharacterController>();
-        reloadAll = reloadAll = GetComponent<ReloadAll>();
+        reloadAll =  GetComponent<ReloadAll>();
+        playAudio = GetComponent<PlayAudio>();
         
     }
     private void FixedUpdate()
@@ -47,7 +48,15 @@ public class BasicMove : MonoBehaviour
         animator.SetFloat("x", smoothInput.x);
         animator.SetFloat("z", smoothInput.y);
 
-       
+        if(Mathf.RoundToInt(movementInput.x) != 0 || Mathf.RoundToInt(movementInput.y) !=0)
+        {
+            playAudio.FootStepSoundPlay();
+
+        }
+        else
+        {
+            playAudio.FootStepSoundPause();
+        }
     }
 
     public void Reload(InputAction.CallbackContext context)

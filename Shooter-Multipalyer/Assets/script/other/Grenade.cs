@@ -43,7 +43,7 @@ public class Grenade : MonoBehaviour
             BotHealth botHealth = obj.GetComponent<BotHealth>();
             if(botHealth != null)
             {
-                botHealth.Damage(100);
+                botHealth.Damage(150);
             }
         }
 
@@ -51,3 +51,4 @@ public class Grenade : MonoBehaviour
         Destroy(gameObject, 6f);
     }
 }
+ 

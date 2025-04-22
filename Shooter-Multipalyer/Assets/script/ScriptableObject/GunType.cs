@@ -9,4 +9,5 @@ public class GunType : ScriptableObject
     public bool IsShotGun;
     public bool IsSniper;
     public int Damage=4;
+    public AudioClip gunSfx;
 }

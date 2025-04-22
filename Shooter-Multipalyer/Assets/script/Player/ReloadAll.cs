@@ -19,14 +19,19 @@ public class ReloadAll : MonoBehaviour
     public int MedicCound=2;
     public int ReloadTime = 2;
     public bool IsReload;
+    public AudioClip ReloadSfx;
+    public AudioClip ThrowSfx;
+    public AudioClip HealingSfx;
 
     private Animator animator;
+    private PlayAudio playAudio;
     private Health health;
     private Throw throwing;
     private Inventory inventory;
     void Start()
     {
         IsReload = false;
+        playAudio = GetComponent<PlayAudio>();
         animator = GetComponent<Animator>();
         CurrentAmmo = MaxAmmo;
         inventory = GetComponent<Inventory>();
@@ -61,6 +66,7 @@ public class ReloadAll : MonoBehaviour
     IEnumerator reload()
     {
         IsReload = true;
+        playAudio.AudioPlay(ReloadSfx);
         yield return new WaitForSecondsRealtime(ReloadTime);
 
         int NeadAmmo = MaxAmmo - CurrentAmmo;
@@ -87,6 +93,7 @@ public class ReloadAll : MonoBehaviour
     }
     IEnumerator heal()
     {
+        playAudio.AudioPlay(HealingSfx);
         IsReload = true;
         MedicCound--;
         inventory.RemoveItem("medic",true);
@@ -99,6 +106,7 @@ public class ReloadAll : MonoBehaviour
     {
         if(GrenadeCound!=0)
         {
+            playAudio.AudioPlay(ThrowSfx);
             animator.SetTrigger("grenade");
             throwing.BompThrew();
             inventory.RemoveItem("grenade", true);
@@ -109,6 +117,7 @@ public class ReloadAll : MonoBehaviour
     {
         if (SmokeCound != 0)
         {
+            playAudio.AudioPlay(ThrowSfx);
             animator.SetTrigger("grenade");
             throwing.SmokThrew();
             inventory.RemoveItem("smoke", true);

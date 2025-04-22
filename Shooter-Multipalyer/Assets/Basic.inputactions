@@ -146,12 +146,78 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "5d39fc64-ae55-4363-bdff-3fb0291de19d",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "41ebafa4-0ff2-485b-b8b8-f0adc1ee0bdf",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "d0732bed-5661-49ed-80f3-c2f4627bd5a5",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "fe3dac71-6706-4e6a-8973-0cdc6b6b39b3",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "c5c97e87-b3ff-4c6c-acaa-82f4531eba69",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "80e2d169-e88d-4b97-9392-871b14e664ff",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": ";keybord & mouse",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1dc5bde-283d-449a-883c-23d125be8936",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
                     "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -169,11 +235,33 @@
                 },
                 {
                     "name": "",
+                    "id": "f48210e3-6203-40ee-8f94-18e9a7bc33e1",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "91f0864e-5f04-4102-8bf9-03cfa3f86a01",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": ";keybord & mouse",
+                    "action": "Heal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36672b36-c59f-4469-b734-8694825f3897",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
                     "action": "Heal",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -191,11 +279,33 @@
                 },
                 {
                     "name": "",
+                    "id": "aaaa20bf-542a-462f-88cd-9cb3579999fd",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
+                    "action": "grenade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "17f65d95-9ca8-495a-8beb-e4508d767147",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": ";keybord & mouse",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ab9b434-8912-434f-97fa-7e881ee17f18",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
                     "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -213,11 +323,33 @@
                 },
                 {
                     "name": "",
+                    "id": "6f803f38-4d96-4bfb-a48b-6fd6e3a013be",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
+                    "action": "Snoke",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ff6c7012-6054-4ba2-9559-ece609af53d1",
                     "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": ";keybord & mouse",
+                    "action": "CamaraSwitch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f189b09-d2cb-4981-924a-cfcf31749788",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";controller",
                     "action": "CamaraSwitch",
                     "isComposite": false,
                     "isPartOfComposite": false

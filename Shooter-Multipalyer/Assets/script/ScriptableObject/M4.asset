@@ -15,3 +15,7 @@ MonoBehaviour:
   FireRate: 0.1
   FireDistance: 50
   Maxammo: 50
+  IsShotGun: 0
+  IsSniper: 0
+  Damage: 4
+  gunSfx: {fileID: 8300000, guid: 6111becd8b4dc834697cc6fd1d065624, type: 3}
