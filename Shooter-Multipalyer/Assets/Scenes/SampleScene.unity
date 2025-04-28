@@ -562,6 +562,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9220544355870299245, guid: 491fd4660330c6548b27b25c3853308c, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8728315542699525874, guid: 491fd4660330c6548b27b25c3853308c, type: 3}
       propertyPath: m_Name
       value: smoke
@@ -979,6 +983,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8746644657070356688, guid: 385240be10070734d9f0688de8fdeafb, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7156372669828740622, guid: 385240be10070734d9f0688de8fdeafb, type: 3}
       propertyPath: m_Name
       value: MedicalBox
@@ -1036,6 +1044,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4718153374174586072, guid: 17ff99c8fc2846c4d90a6edb117308dd, type: 3}
+      propertyPath: sceneViewId
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1352549484202933180, guid: 17ff99c8fc2846c4d90a6edb117308dd, type: 3}
       propertyPath: m_Name
       value: Grenade
@@ -1093,6 +1105,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2843887464007604718, guid: bb681ba4eb78e7945a7c9c5c387952e7, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8386379299815704929, guid: bb681ba4eb78e7945a7c9c5c387952e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.743857
@@ -1329,6 +1345,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Helmet_Level _2
       objectReference: {fileID: 0}
+    - target: {fileID: 3543158571241349280, guid: da4dcf1d996e3d5478536be71dbae61d, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7107668326014894403, guid: da4dcf1d996e3d5478536be71dbae61d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.85906
@@ -1422,6 +1442,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3657928829431289840, guid: 6a8bd78f4560dca4fbf5db0868fe5cde, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6417337450120085829, guid: 6a8bd78f4560dca4fbf5db0868fe5cde, type: 3}
       propertyPath: m_Name
       value: Ammo_Box
@@ -1503,6 +1527,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6199726579908997386, guid: 17625237f2633aa4b9ba4c4315ed409f, type: 3}
+      propertyPath: sceneViewId
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8202843014160018446, guid: 17625237f2633aa4b9ba4c4315ed409f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1510,7 +1538,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 188568034638555831, guid: 17625237f2633aa4b9ba4c4315ed409f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 17625237f2633aa4b9ba4c4315ed409f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

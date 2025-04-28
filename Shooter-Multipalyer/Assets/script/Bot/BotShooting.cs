@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class BotShooting : MonoBehaviour
 {
-    public ParticleSystem MuzzleEffect;
-    public ParticleSystem HitEffect;
-    public TrailRenderer trail;
+    
     public Transform originPoint;
     public Transform checkingPoint1;
     public LayerMask EnemyLayer;
@@ -14,10 +12,10 @@ public class BotShooting : MonoBehaviour
     public PlayAudio playAudio;
     public AudioClip gunSfx;
     private float lastFireTime=0;
-
+    private GunFx gunFx;
     void Start()
     {
-       
+        gunFx = GetComponentInParent<GunFx>();  
     }
 
   
@@ -39,19 +37,15 @@ public class BotShooting : MonoBehaviour
     {
         if(Physics.Raycast(originPoint.position,originPoint.forward,out RaycastHit hitinfo,fireRange, EnemyLayer))
         {
-           
-          
-                MuzzleEffect.Emit(1);
+
+
+               gunFx.MuzzleFX();    
                playAudio.AudioPlay(gunSfx);
              
 
-                HitEffect.transform.position = hitinfo.point;
-                hitinfo.transform.forward = hitinfo.normal;
-                HitEffect.Emit(1);
+               
 
-                var Trail = Instantiate(trail, originPoint.position, Quaternion.identity);
-                Trail.AddPosition(originPoint.position);
-                trail.transform.position = hitinfo.point;
+               
 
                 Health health = hitinfo.collider.GetComponentInParent<Health>();
                 if (health != null)
@@ -64,9 +58,9 @@ public class BotShooting : MonoBehaviour
                     botHealth.Damage(4);
                 }
 
+            gunFx.HittFx(hitinfo.point, hitinfo.normal, true);
+              gunFx.Trail(originPoint.position, hitinfo.point);
 
-            
-            
 
         }
 

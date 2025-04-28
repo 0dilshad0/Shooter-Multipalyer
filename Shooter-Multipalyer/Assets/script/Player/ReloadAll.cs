@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -28,9 +29,11 @@ public class ReloadAll : MonoBehaviour
     private Health health;
     private Throw throwing;
     private Inventory inventory;
+    private PhotonView photonView;
     void Start()
     {
         IsReload = false;
+        photonView = GetComponentInParent<PhotonView>();
         playAudio = GetComponent<PlayAudio>();
         animator = GetComponent<Animator>();
         CurrentAmmo = MaxAmmo;
@@ -42,6 +45,7 @@ public class ReloadAll : MonoBehaviour
   
     void Update()
     {
+        if (!photonView.IsMine) return;
         CurrentAmmoText.text = CurrentAmmo.ToString();
         TotalAmmoText.text = TotalAmmo.ToString();
         MedicCountText.text = MedicCound.ToString();
@@ -131,22 +135,56 @@ public class ReloadAll : MonoBehaviour
         if(other.CompareTag("medic") && inventory.AddItem("medic"))
         {
             MedicCound++;
-            Destroy(other.gameObject);
+            PhotonView itemView = other.GetComponent<PhotonView>();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(other.gameObject);
+            }
+            else if (itemView != null)
+            {
+                photonView.RPC("RequestDestroyObject", RpcTarget.MasterClient, itemView.ViewID);
+            }
+
         }
 
         if(other.CompareTag("ammo") && inventory.AddItem("ammo",100))
         {
             TotalAmmo += 100;
-            Destroy(other.gameObject);
+            PhotonView itemView = other.GetComponent<PhotonView>();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(other.gameObject);
+            }
+            else if (itemView != null)
+            {
+                photonView.RPC("RequestDestroyObject", RpcTarget.MasterClient, itemView.ViewID);
+            }
         }
         if(other.CompareTag("grenade") && inventory.AddItem("grenade"))
         {
             GrenadeCound++;
-            Destroy(other.gameObject);
-        }if(other.CompareTag("smoke") && inventory.AddItem("smoke"))
+            PhotonView itemView = other.GetComponent<PhotonView>();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(other.gameObject);
+            }
+            else if (itemView != null)
+            {
+                photonView.RPC("RequestDestroyObject", RpcTarget.MasterClient, itemView.ViewID);
+            }
+        }
+        if(other.CompareTag("smoke") && inventory.AddItem("smoke"))
         {
             SmokeCound++;
-            Destroy(other.gameObject);
+            PhotonView itemView = other.GetComponent<PhotonView>();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(other.gameObject);
+            }
+            else if (itemView != null)
+            {
+                photonView.RPC("RequestDestroyObject", RpcTarget.MasterClient, itemView.ViewID);
+            }
         }
 
 
@@ -161,7 +199,15 @@ public class ReloadAll : MonoBehaviour
                 inventory.RemoveItem("helmet2", true);
             }
             health.HelmetPic(25 , "Level1");
-            Destroy(other.gameObject);
+            PhotonView itemView = other.GetComponent<PhotonView>();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(other.gameObject);
+            }
+            else if (itemView != null)
+            {
+                photonView.RPC("RequestDestroyObject", RpcTarget.MasterClient, itemView.ViewID);
+            }
         }
         if(other.CompareTag("helmet2") && health.PickLevel2() && inventory.AddItem("helmet2"))
         {
@@ -174,9 +220,30 @@ public class ReloadAll : MonoBehaviour
                 inventory.RemoveItem("helmet2", true);
             }
             health.HelmetPic(50, "Level2");
-            Destroy(other.gameObject);
+            PhotonView itemView = other.GetComponent<PhotonView>();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(other.gameObject);
+            }
+            else if (itemView != null)
+            {
+                photonView.RPC("RequestDestroyObject", RpcTarget.MasterClient, itemView.ViewID);
+            }
         }
 
        
+    }
+
+    [PunRPC]
+    void RequestDestroyObject(int viewID)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonView view = PhotonView.Find(viewID);
+            if (view != null)
+            {
+                PhotonNetwork.Destroy(view.gameObject);
+            }
+        }
     }
 }

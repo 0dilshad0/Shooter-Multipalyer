@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class Smoke : MonoBehaviour
@@ -22,6 +23,10 @@ public class Smoke : MonoBehaviour
     {
         ExplosionFx.Play();
         SmokeSfx.Play();
-        Destroy(gameObject, 10f);
+        Invoke("Distroy", 10);
+    }
+    private void Distroy()
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 }

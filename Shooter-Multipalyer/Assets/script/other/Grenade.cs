@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 
@@ -38,7 +39,7 @@ public class Grenade : MonoBehaviour
             Health health = obj.GetComponent<Health>();
             if(health != null)
             {
-                health.Damage(100);
+                health.Damage(100,PhotonNetwork.LocalPlayer);
             }
             BotHealth botHealth = obj.GetComponent<BotHealth>();
             if(botHealth != null)
@@ -47,8 +48,13 @@ public class Grenade : MonoBehaviour
             }
         }
 
+        Invoke("Distroy", 4);
+      
+    }
 
-        Destroy(gameObject, 6f);
+    private void Distroy()
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 }
  

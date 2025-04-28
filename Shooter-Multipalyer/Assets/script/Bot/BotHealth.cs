@@ -1,4 +1,5 @@
 
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,12 +11,14 @@ public class BotHealth : MonoBehaviour
     public int MaxHealth = 100;
     private int CurrentSheald;
     private int CurrentHealth;
+    private PhotonView photonView;
     public UnityEvent OnDie;
 
     void Start()
     {
         CurrentSheald = MaxSheald / 2;
         CurrentHealth = MaxHealth;
+        photonView = GetComponent<PhotonView>();
     }
 
     
@@ -35,7 +38,15 @@ public class BotHealth : MonoBehaviour
         }
     }
 
+
     public void Damage(int damage)
+    {
+        if (!photonView.IsMine && PhotonNetwork.IsConnected) return;
+        photonView.RPC("ApplyDamage",RpcTarget.AllBuffered,damage);
+
+    }
+    [PunRPC]
+    private void ApplyDamage(int damage)
     {
         if (CurrentSheald > 0)
         {
@@ -51,6 +62,6 @@ public class BotHealth : MonoBehaviour
         {
             CurrentHealth = Mathf.Max(0, CurrentHealth - damage);
         }
-
     }
+   
 }

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -6,18 +7,16 @@ public class shooting : MonoBehaviour
 {
     public float aimDuration=0.3f;
     public GunType gunType;
-    public CinemachineCamera FireCamara;
-    public GameObject FirstPersonCamara;
-    public CinemachineCamera FirstPersonCamaraFov;
+    public CinemachineCamera FireCamera;
+    public GameObject FirstPersonCamera;
+    public CinemachineCamera FirstPersonCameraFov;
     public GameObject Scope;
     public CinemachineImpulseSource Recoil;
     public Rig RigLayer;
     public Transform FireOriginPoint;
     public Transform CrossTargetPoint;
-    public ParticleSystem muzzlEffenct;
-    public ParticleSystem HittEffect;
-    public ParticleSystem BlodEffect;
-    public TrailRenderer trail;
+    
+   
 
    
 
@@ -28,10 +27,13 @@ public class shooting : MonoBehaviour
     private InputAction FireAction;
     public PlayerInput playerInput;
     public ReloadAll reloadAll;
+    private GunFx gunFx;
     private float LastFireTime = 0;
-
+    private PhotonView photonView;
     private void Awake()
     {
+        photonView = GetComponentInParent<PhotonView>();
+        gunFx = GetComponentInParent<GunFx>();
         playAudio = GetComponentInParent<PlayAudio>();
         reloadAll.MaxAmmo =gunType.Maxammo;
         FireAction = playerInput.actions["Fire"];
@@ -45,6 +47,7 @@ public class shooting : MonoBehaviour
     
     void Update()
     {
+        if (!photonView.IsMine) return;
         ScopeOn();
         ray.origin = FireOriginPoint.position;
         ray.direction = CrossTargetPoint.position - FireOriginPoint.position;
@@ -54,16 +57,16 @@ public class shooting : MonoBehaviour
         
         if(IsFire() && reloadAll.CanShoot())
         {
-            FireCamara.enabled = true;
-          
+            //FireCamera.enabled = true;
            
+                           
             RigLayer.weight += Time.deltaTime / aimDuration;
 
             if(Time.time >= LastFireTime + gunType.FireRate)
             {
                 LastFireTime = Time.time;
                 reloadAll.CurrentAmmo--;
-                muzzlEffenct.Emit(1);
+                gunFx.MuzzleFX();
                 Recoil.GenerateImpulse();
 
                 if(gunType.IsShotGun)
@@ -79,9 +82,9 @@ public class shooting : MonoBehaviour
         }
         else
         {
-            FireCamara.enabled = false;
+            FireCamera.enabled = false;
 
-            if(!FirstPersonCamara.activeInHierarchy)
+            if(!FirstPersonCamera.activeInHierarchy)
             {
                 RigLayer.weight -= Time.deltaTime / aimDuration;
             }
@@ -89,34 +92,44 @@ public class shooting : MonoBehaviour
         }
     }
 
+   
+
     private void SingleBullet(Ray BulletRay)
     {
         if (Physics.Raycast(BulletRay, out hitinfo, gunType.FireDistance) && RigLayer.weight == 1)
         {
-
+            gunFx.Trail(ray.origin, hitinfo.point);
 
             playAudio.AudioPlay(gunType.gunSfx);
 
-           var Trail = Instantiate(trail, ray.origin, Quaternion.identity);
-            Trail.AddPosition(ray.origin);
-            Trail.transform.position = hitinfo.point;
+           
 
             BotHealth bothealth = hitinfo.collider.GetComponentInParent<BotHealth>();
+            Health health = hitinfo.collider.GetComponentInParent<Health>();
             HitBox hitBox = hitinfo.collider.GetComponent<HitBox>();
-            if(bothealth!= null && hitBox !=null)
+            bool IsEnemy = false;
+            if(hitBox !=null)
             {
                 int damage = Mathf.RoundToInt(gunType.Damage * hitBox.DamageMultiplier);
-                bothealth.Damage(damage);
-                BlodEffect.transform.position = hitinfo.point;
-                BlodEffect.transform.forward = hitinfo.normal;
-                BlodEffect.Emit(1);
+                if(bothealth!=null)
+                {
+                    bothealth.Damage(damage);
+                    IsEnemy = true;
+                }
+                else if(health != null)
+                {
+                    PhotonView targetPhotonView = health.GetComponent<PhotonView>();
+                    if (targetPhotonView != null)
+                    {
+                       
+                        targetPhotonView.RPC("ApplyDamage", targetPhotonView.Owner, damage,PhotonNetwork.LocalPlayer);
+                        IsEnemy = true;
+                    }
+                   
+                }
             }
-            else
-            {
-                HittEffect.transform.position = hitinfo.point;
-                HittEffect.transform.forward = hitinfo.normal;
-                HittEffect.Emit(1);
-            }
+            gunFx.HittFx(hitinfo.point, hitinfo.normal, IsEnemy);
+
         }
     }
     private void ShotGen()
@@ -130,6 +143,7 @@ public class shooting : MonoBehaviour
             Ray PelletRay = new Ray(ray.origin, SpreadDirection);
 
             SingleBullet(PelletRay);
+           
         }
 
     }
@@ -150,15 +164,15 @@ public class shooting : MonoBehaviour
 
     private void ScopeOn()
     {
-        if (FirstPersonCamara.activeInHierarchy && gunType.IsSniper)
+        if (FirstPersonCamera.activeInHierarchy && gunType.IsSniper)
         {
             Scope.SetActive(true);
-            FirstPersonCamaraFov.Lens.FieldOfView = 5f;
+            FirstPersonCameraFov.Lens.FieldOfView = 5f;
         }
         else
         {
             Scope.SetActive(false);
-            FirstPersonCamaraFov.Lens.FieldOfView = 50f;
+            FirstPersonCameraFov.Lens.FieldOfView = 50f;
         }
 
     }

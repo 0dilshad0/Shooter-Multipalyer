@@ -1,9 +1,10 @@
 
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
 
-public class BotMoves : MonoBehaviour
+public class BotMoves : MonoBehaviourPunCallbacks
 {
    
     public float AttackinRange = 10f;
@@ -32,9 +33,9 @@ public class BotMoves : MonoBehaviour
     
     void Update()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
 
-        
-        if(CurrentTarget != null)
+        if (CurrentTarget != null)
         {
             float distance = Vector3.Distance(transform.position, CurrentTarget.position);
             Vector3 lookPoint = CurrentTarget.position + Vector3.up * 1.5f;

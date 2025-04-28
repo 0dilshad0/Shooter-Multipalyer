@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Pun;
 public class Inventory : MonoBehaviour
 {
     
@@ -147,6 +147,6 @@ public class Inventory : MonoBehaviour
 
     public void  DropItem(string Item)
     {
-        GameObject DropedItem = Instantiate(Resources.Load<GameObject>("picUp/" + Item), DropPont.position, Quaternion.identity);
+        GameObject DropedItem = PhotonNetwork.Instantiate("picUp/" + Item, DropPont.position, Quaternion.identity);
     }
 }
